@@ -1,3 +1,5 @@
+import random
+import numpy as np
 from preprocess import load_data
 from model import build_model
 from sklearn.model_selection import train_test_split
@@ -5,6 +7,12 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 import seaborn as sns
 import matplotlib.pyplot as plt
+
+def set_seed(seed=42):
+    random.seed(seed)
+    np.random.seed(seed)
+
+set_seed(42)
 
 X, y = load_data()
 
@@ -34,5 +42,5 @@ plt.xlabel("Predicted Label")
 plt.ylabel("True Label")
 plt.title("Confusion Matrix")
 
-plt.savefig("confusion_matrix.png")
+# plt.savefig("confusion_matrix.png")
 plt.show()
