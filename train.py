@@ -1,4 +1,5 @@
 import random
+import pickle
 import numpy as np
 from preprocess import load_data
 from model import build_model
@@ -46,6 +47,15 @@ print("Best parameter:", grid.best_params_)
 
 preds = best_model.predict(X_test_vec)
 
+with open("models/logreg_model.pkl", "wb") as f:
+    pickle.dump(best_model, f)
+
+# Save the vectorizer
+with open("models/tfidf_vectorizer.pkl", "wb") as f:
+    pickle.dump(vectorizer, f)
+
+print("Model and vectorizer saved to models/")
+
 print(classification_report(y_test, preds))
 
 cm = confusion_matrix(y_test, preds)
@@ -59,5 +69,5 @@ plt.xlabel("Predicted Label")
 plt.ylabel("True Label")
 plt.title("Confusion Matrix")
 
-# plt.savefig("confusion_matrix.png")
+plt.savefig("confusion_matrix.png")
 plt.show()
